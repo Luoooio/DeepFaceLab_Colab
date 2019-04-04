@@ -1,4 +1,4 @@
-﻿import sys
+import sys
 import traceback
 import queue
 import threading
@@ -11,6 +11,9 @@ from utils import image_utils
 import cv2
 import models
 from interact import interact as io
+import os
+import shutil
+
 
 def trainerThread (s2c, c2s, args, device_args):
     while True:
@@ -57,7 +60,17 @@ def trainerThread (s2c, c2s, args, device_args):
                 else:
                     previews = [( 'debug, press update for new', model.debug_one_iter())]
                     c2s.put ( {'op':'show', 'previews': previews} )
-
+            def up_model():
+                iters = model.get_iter()
+                output_filename = '/content/sample_data/models.zip'
+                files = glob.glob('/content/faceswap-GAN/models/*')
+                with zipfile.ZipFile(output_filename, 'w')  as zipf:
+                    for i in files:
+                        if i.endswith('.h5'):
+                            zipf.write(i,'/'+os.path.basename(i))
+                drive = '/content/drive/My Drive/DeepFaceLab/Model/fbb_ftm_model.zip'
+                shutil.move(output_filename,drive)
+                print('MODELS上传成功')
 
             if model.is_first_run():
                 model_save()
