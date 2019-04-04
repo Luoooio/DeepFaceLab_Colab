@@ -62,8 +62,8 @@ def trainerThread (s2c, c2s, args, device_args):
                     c2s.put ( {'op':'show', 'previews': previews} )
             def up_model():
                 iters = model.get_iter()
-                output_filename = '/content/sample_data/models.zip'
-                files = glob.glob('/content/faceswap-GAN/models/*')
+                output_filename = '/content/DeepFaceLab/models.zip'
+                files = glob.glob('/content/DeepFaceLab/workspace/model/*')
                 with zipfile.ZipFile(output_filename, 'w')  as zipf:
                     for i in files:
                         if i.endswith('.h5'):
