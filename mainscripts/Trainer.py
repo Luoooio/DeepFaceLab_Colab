@@ -71,7 +71,9 @@ def trainerThread (s2c, c2s, args, device_args):
                 drive = '/content/drive/My Drive/DeepFaceLab/Model/fbb_ftm_model.zip'
                 shutil.move(output_filename,drive)
                 print('MODELS上传成功')
-
+            if model.get_iter()==800:
+                model_save()
+                up_model()
             if model.is_first_run():
                 model_save()
 
