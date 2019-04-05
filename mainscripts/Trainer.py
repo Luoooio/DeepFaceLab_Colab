@@ -13,7 +13,8 @@ import models
 from interact import interact as io
 import os
 import shutil
-
+import glob
+import zipfile
 
 def trainerThread (s2c, c2s, args, device_args):
     while True:
