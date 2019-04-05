@@ -75,7 +75,7 @@ def trainerThread (s2c, c2s, args, device_args):
                     print('MODELS上传成功')
                 except Exception as e:
                     print ('错误: %s' % (str(e)))
-            if model.get_iter()==800:
+            if model.get_iter()%800==0:
                 model_save()
                 up_model()
             if model.is_first_run():
