@@ -51,7 +51,7 @@ def trainerThread (s2c, c2s, args, device_args):
                 if not debug and not is_reached_goal:
                     io.log_info ("Saving....", end='\r')
                     model.save()
-                    up_load()
+                    up_model()
                     io.log_info(loss_string)
                     is_upd_save_time_after_train = True
 
