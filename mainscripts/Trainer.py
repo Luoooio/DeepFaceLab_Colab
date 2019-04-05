@@ -23,7 +23,7 @@ def trainerThread (s2c, c2s, args, device_args):
             training_data_dst_path = Path( args.get('training_data_dst_dir', '') )
             model_path = Path( args.get('model_path', '') )
             model_name = args.get('model_name', '')
-            save_interval_min = 15
+            save_interval_min = 200
             debug = args.get('debug', '')
 
             if not training_data_src_path.exists():
@@ -51,6 +51,7 @@ def trainerThread (s2c, c2s, args, device_args):
                 if not debug and not is_reached_goal:
                     io.log_info ("Saving....", end='\r')
                     model.save()
+                    up_load()
                     io.log_info(loss_string)
                     is_upd_save_time_after_train = True
 
