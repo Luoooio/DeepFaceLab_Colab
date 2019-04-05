@@ -62,16 +62,19 @@ def trainerThread (s2c, c2s, args, device_args):
                     previews = [( 'debug, press update for new', model.debug_one_iter())]
                     c2s.put ( {'op':'show', 'previews': previews} )
             def up_model():
-                iters = model.get_iter()
-                output_filename = '/content/DeepFaceLab/models.zip'
-                files = glob.glob('/content/DeepFaceLab/workspace/model/*')
-                with zipfile.ZipFile(output_filename, 'w')  as zipf:
-                    for i in files:
-                        if i.endswith('.h5'):
-                            zipf.write(i,'/'+os.path.basename(i))
-                drive = '/content/drive/My Drive/DeepFaceLab/Model/fbb_ftm_model.zip'
-                shutil.move(output_filename,drive)
-                print('MODELS上传成功')
+                try:
+                    iters = model.get_iter()
+                    output_filename = '/content/DeepFaceLab/models.zip'
+                    files = glob.glob('/content/DeepFaceLab/workspace/model/*')
+                    with zipfile.ZipFile(output_filename, 'w')  as zipf:
+                        for i in files:
+                            if i.endswith('.h5'):
+                                zipf.write(i,'/'+os.path.basename(i))
+                    drive = '/content/drive/My Drive/DeepFaceLab/Model/fbb_ftm_model.zip'
+                    shutil.move(output_filename,drive)
+                    print('MODELS上传成功')
+                except Exception as e:
+                    print ('错误: %s' % (str(e)))
             if model.get_iter()==800:
                 model_save()
                 up_model()
